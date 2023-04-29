@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAM TALENT</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+<body>
+    <img class="logo" src="../pct/LOGO.png">
+    <ul>
+        <li><a class="active" href="../index.html">HOMEPAGE</a></li>
+        <li><a href="../documents/regulamin/index.html">REGULAMIM</a></li>
+        <li><a href="../documents/privacy/index.html">POLITYKA</a></li>
+        <li><a href="#about">KONTAKT</a></li>
+    </ul>
+
+    <div class="form" >
+        <form id="form" action="./success_page/index.html">
+            <p>FOMULARZ ZGŁOSZENIOWY</p>
+
+            <div class="forms">
+                <label for="imie">IMIE UCZESTNIKA:</label><br>
+                <input type="text" id="imie" name="IMIE" required><br>
+    
+                <label for="nazwisko">NAZWISKO UCZESTNIKA:</label><br>
+                <input type="text" id="nazwisko" name="NAZWISKO" required><br>
+    
+                <label for="data">DATA URODZENIA</label><br>
+                <input type="date" id="data" name="DATA_UR" required><br>
+    
+                <label for="num-tel">NUMER TELEFONU</label><br>
+                <input type="tel" id="num-tel" name="NUM_TEL" pattern="[0-9]{9}" required><br>
+
+                <input type="checkbox" id="policy" name="policy" required>
+                <label for="policy">Zapoznałem się z warunkami konkursu i ble ble</label><br>
+                
+                <button onClick="window.location.href='./success_page/index.html';" type="submit" id="submit">Submit</button>
+                
+            </div>
+
+        </form>
+    </div>
+
+    
+</body>
+
+<script>
+    const form = document.querySelector("#form")
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzl_B6fedLPc-WaI83YI6nAK91pnzu7tGwXPN9MA49LCak6kA0QbCEy3x1Lv3jWxKs4/exec'
+  
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+  
+      const responseBody = new FormData(form)
+      const TrendBody = responseBody.getAll("TRENDS").join(" ")
+      responseBody.set('TRENDS', TrendBody)
+      fetch(scriptURL, { method: 'POST', body: responseBody })
+        .then(response => { console.log('Success!', response) })
+        .catch(error => console.log('Error!', error.message))
+    })
+  </script>
+</html>
